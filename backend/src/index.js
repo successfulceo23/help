@@ -12,9 +12,9 @@ import { connectDB } from "./lib/db.js";
 import User from "./models/user.model.js";
 import clerkWebhook from "./webhooks/clerk.webhook.js";
 import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 
-const app = express();
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
@@ -31,6 +31,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 
 // if the public directory exists, serve the static files
 // this is for the production build
@@ -42,6 +43,8 @@ if (fs.existsSync(publicDir)) {
   });
 }
 
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
     connectDB();
-console.log("server is up and running:", PORT)});
+console.log("server is up and running:", PORT);
+ if (process.env.NODE_ENV === "production") job.start();
+});
